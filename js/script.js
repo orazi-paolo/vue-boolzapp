@@ -191,9 +191,6 @@ createApp({
         // funzione per inviare un messaggio
         sendMessage() {
             if (this.newMessage.trim() !== '') {
-                if (!this.activeContact.messages) {
-                    this.activeContact.messages = [];
-                }
                 this.activeContact.messages.push({
                     date: this.getCurrentDate(),
                     message: this.newMessage,
@@ -238,12 +235,9 @@ createApp({
         },
         // funzione per eliminare il messaggio selezionato
         deleteMessage(index) {
-            console.log(`eliminato il messaggio all index ${index}`);
-            console.log('messaggio prima di eliminarlo' + this.activeContact.messages);
             if (index >= 0 && index < this.activeContact.messages.length) {
                 this.activeContact.messages.splice(index, 1);
             }
-            console.log('Proprietà messaggi dopo averli eliminati:', this.activeContact.messages);
             if (this.dropdownIndex === index) this.dropdownIndex = null;
         },
     },
@@ -258,9 +252,5 @@ createApp({
         // inizializzo il contatto attivo al primo contatto
         this.activeContact = this.contacts[0] || { name: '', avatar: '', visible: false, messages: [] };
         this.filteredContactsArray = this.contacts;
-    },
-    // funzione per far comparire il contatto attivo all'avvio
-    created() {
-        this.activeContact = this.contacts[0] || { name: '', avatar: '', visible: false, messages: [] };
     }
 }).mount('#app')
