@@ -61,7 +61,12 @@ footer {
 
 
 /* messaggistica */
+main {
+    background-image: url(../img/mine.png);
+}
+
 .li-message {
+    position: relative;
     border-radius: 15px;
     min-width: 100px;
     max-width: 500px;
@@ -78,4 +83,25 @@ footer {
 .received {
     background-color: white;
     align-self: flex-start;
+}
+
+.date {
+    font-size: 10px;
+    width: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 1;
 }

@@ -167,20 +167,25 @@ createApp({
                 }
             ],
             // proprietà per il contatto attivo
-            activeContact: 0,
+            activeContact: {
+                name: '',
+                avatar: '',
+                messages: []
+            },
             // proprietà per il nuovo messaggio
             newMessage: '',
             // proprietà da collegare all'input di ricerca
             searchContact: '',
             // array per i contatti filtrati e non
             filteredContactsArray: [],
-
+            // variabile per tenere traccia del menu aperto
+            dropdownIndex: null,
         }
     },
     methods: {
         // funzione per selezionare il contatto attivo
         selectContact(contact) {
-            this.activeContact = contact;
+            this.activeContact = contact || { name: '', avatar: '', messages: [] };
         },
         // funzione per inviare un messaggio
         sendMessage() {
@@ -222,15 +227,37 @@ createApp({
         filterContacts() {
             if (!this.searchContact) this.filteredContactsArray = this.contacts;
             else this.filteredContactsArray = this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.toLowerCase()));
-
-        }
+        },
+        // funzione per far comparire il dropdown
+        toggleDropdown(index) {
+            this.dropdownIndex = this.dropdownIndex === index ? null : index;
+        },
+        // funzione per eliminare il messaggio selezionato
+        deleteMessage(index) {
+            console.log(`eliminato il messaggio all index ${index}`);
+            console.log('messaggio prima di eliminarlo' + this.activeContact.messages);
+            if (index >= 0 && index < this.activeContact.messages.length) {
+                this.activeContact.messages.splice(index, 1);
+            }
+            console.log('Proprietà messaggi dopo averli eliminati:', this.activeContact.messages);
+            if (this.dropdownIndex === index) this.dropdownIndex = null;
+        },
     },
     // inizializzo il filtro dei contatti a tutti i contatti
     mounted() {
+        // se non ci sono messaggi, li inizializzo vuoti
+        this.contacts.forEach(contact => {
+            if (!contact.messages) {
+                contact.messages = [];
+            }
+        });
+        // inizializzo il contatto attivo al primo contatto
+        this.activeContact = this.contacts[0];
         this.filteredContactsArray = this.contacts;
     },
     // funzione per far comparire il contatto attivo all'avvio
     created() {
         this.activeContact = this.contacts[0];
+
     }
 }).mount('#app')

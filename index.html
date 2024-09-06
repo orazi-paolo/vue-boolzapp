@@ -27,11 +27,13 @@
 <body>
     <!-- Vue 3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <div id="app" class="h-100 d-flex justify-content-center align-items-center">
         <div class="container-card overflow-hidden">
             <div class="row h-100 gx-0">
                 <!-- slide contatti e ricerca -->
                 <div class="col-5 h-100 bg-light flex-column">
+                    <!-- mio contatto -->
                     <header id="header-slide" class="bg-light d-flex justify-content-between">
                         <div class="d-flex align-items-center h-100">
                             <img src="img/avatar_io.png" alt="immagine di profilo" class="profile-img me-2">
@@ -43,6 +45,7 @@
                             <i class="fa-solid fa-ellipsis-vertical fa-lg" role="button"></i>
                         </div>
                     </header>
+                    <!-- alert se vuoi attivare le notifiche -->
                     <div class="notification d-flex align-items-center">
                         <div class="notification-icon d-flex justify-content-center align-items-center ms-3 me-3">
                             <i class="fa-solid fa-xmark fa-2xl"></i>
@@ -52,30 +55,38 @@
                             <a href="#">Attiva notifiche desktop</a>
                         </div>
                     </div>
+                    <!-- barra di ricerca per i contatti -->
                     <nav class="search-bar">
                         <div class="input-group">
                             <span class="input-group-text ps-4"><i class="fa-solid fa-magnifying-glass"
                                     role="button"></i></span>
                             <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat"
-                                v-model="searchContact" @input="filterContacts()">
+                                v-model="searchContact" @input="filterContacts()" name="search-bar">
                         </div>
                     </nav>
+                    <!-- lista contatti -->
                     <div class="list-contacts overflow-auto">
                         <ul class="ps-0">
                             <li class="li-list list-unstyled d-flex align-items-center"
                                 v-for="(contact,index) in filteredContactsArray" @click="selectContact(contact)"
                                 role="button">
                                 <img :src="contact.avatar" class="profile-img ps-3"
-                                    :alt="`immagine di profilo di ${contact.name} `">
-                                <div class="ms-3">
-                                    <div class="fw-bold">{{ contact.name }}</div>
-                                    <div>{{ contact.messages[contact.messages.length - 1].message }}</div>
+                                    :alt="`immagine di profilo di ${contact.name}`">
+                                <div class="ms-3 d-flex         justify-content-between w-100">
+                                    <div>
+                                        <div class="fw-bold">{{ contact.name }}</div>
+                                        <div>{{ contact.messages[contact.messages.length - 1].message }}
+                                        </div>
+                                    </div>
+                                    <div class="me-2">{{ contact.messages[contact.messages.length - 1].date }}</div>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <!-- messaggistica -->
                 <div class="col-7  h-100 d-flex flex-column justify-content-between">
+                    <!-- info contatto selezionato -->
                     <header id="header-slide" class="bg-light d-flex justify-content-between ">
                         <div class="d-flex align-items-center h-100">
                             <img :src="activeContact.avatar" :alt="`immagine di profilo di ${activeContact.name}`"
@@ -91,19 +102,40 @@
                             <i class="fa-solid fa-ellipsis-vertical fa-lg" role="button"></i>
                         </div>
                     </header>
+                    <!-- messaggi -->
                     <main class=" h-100 d-flex flex-column justify-content-start pb-1 overflow-auto">
                         <ul class="mb-0 ps-0 d-flex flex-column">
                             <li class="list-unstyled p-3 mt-3 li-message"
-                                v-for="(message, index) in activeContact.messages"
-                                :class="{  'send me-3': message.status === 'sent', 'received ms-3': message.status === 'received' }">
-                                {{message.message}}
+                                v-for="(message, index) in activeContact.messages || []"
+                                :class="{  'send me-3 ms-3': message.status === 'sent', 'received ms-3 me-3': message.status === 'received' }">
+                                <div class="row">
+                                    <div class="col-10" v-if="message">
+                                        {{message.message || '' }}
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-between flex-column">
+                                        <div class="dropdown align-self-end position-relative">
+                                            <i class="fa-solid fa-chevron-down" role="button"
+                                                @click="toggleDropdown(index)"></i>
+                                            <ul class="dropdown-menu" v-if="dropdownIndex === index">
+                                                <li class="dropdown-item" role="button">Mostra info</li>
+                                                <li class="dropdown-item" @click="deleteMessage(index)" role="button">
+                                                    Cancella
+                                                    messaggio</li>
+                                            </ul>
+                                        </div>
+                                        <div class="date align-self-end position-relative">
+                                            {{message.date}}
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </main>
+                    <!-- footer per l'invio dei messaggi -->
                     <footer class="d-flex bg-light align-items-center justify-content-between ">
                         <div><i class="fa-regular fa-face-smile fa-xl me-4 ms-3"></i></div>
                         <input type="text" class="form-control" placeholder="Scrivi un messaggio" v-model="newMessage"
-                            @keyup.enter="sendMessage()">
+                            @keyup.enter="sendMessage()" name="message">
                         <div><i class="fa-solid fa-microphone fa-xl me-3 ms-4"></i></div>
                     </footer>
                 </div>
@@ -112,7 +144,7 @@
     </div>
 
 
-
+    <!-- javascript -->
     <script src="js/script.js"></script>
 </body>
 
