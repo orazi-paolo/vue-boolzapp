@@ -166,15 +166,56 @@ createApp({
                     ],
                 }
             ],
+            // proprietà per il contatto attivo
             activeContact: 0,
+            // proprietà per il nuovo messaggio
+            newMessage: '',
 
         }
     },
     methods: {
+        // funzione per selezionare il contatto attivo
         selectContact(contact) {
             this.activeContact = contact;
+        },
+        // funzione per inviare un messaggio
+        sendMessage() {
+            if (this.newMessage.trim() !== '') {
+                this.activeContact.messages.push({
+                    date: this.getCurrentDate(),
+                    message: this.newMessage,
+                    status: 'sent'
+                });
+                this.cleanerNewMessage();
+                setTimeout(() => {
+                    this.activeContact.messages.push({
+                        date: this.getCurrentDate(),
+                        message: 'ok',
+                        status: 'received'
+                    });
+                }, 1000);
+            }
+        },
+        // funzione per cancellare il testo dall'input
+        cleanerNewMessage() {
+            this.newMessage = '';
+        },
+        // funzione per cercare la data del messaggio
+        getCurrentDate() {
+            const now = new Date();
+            // ottengo giorno mesi e anno correnti e se sono minori di 10 aggiungo uno 0 davanti
+            const day = (now.getDate() < 10 ? '0' : '') + now.getDate();
+            const month = ((now.getMonth() + 1) < 10 ? '0' : '') + (now.getMonth() + 1);
+            const year = now.getFullYear();
+            // ottengo ore minuti e secondi correnti e se sono minori di 10 aggiungo uno 0 davanti
+            const hours = (now.getHours() < 10 ? '0' : '') + now.getHours();
+            const minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+            const seconds = (now.getSeconds() < 10 ? '0' : '') + now.getSeconds();
+            // combino il tutto
+            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
         }
     },
+    // funzione per far comparire il contatto attivo all'avvio
     created() {
         this.activeContact = this.contacts[0];
     }

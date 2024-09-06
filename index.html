@@ -100,7 +100,8 @@
                     </main>
                     <footer class="d-flex bg-light align-items-center justify-content-between ">
                         <div><i class="fa-regular fa-face-smile fa-xl me-4 ms-3"></i></div>
-                        <input type="text" class="form-control" placeholder="Scrivi un messaggio">
+                        <input type="text" class="form-control" placeholder="Scrivi un messaggio" v-model="newMessage"
+                            @keyup.enter="sendMessage()">
                         <div><i class="fa-solid fa-microphone fa-xl me-3 ms-4"></i></div>
                     </footer>
                 </div>
