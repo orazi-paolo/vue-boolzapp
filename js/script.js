@@ -170,7 +170,7 @@ createApp({
             activeContact: {
                 name: '',
                 avatar: '',
-                messages: []
+                messages: ''
             },
             // proprietà per il nuovo messaggio
             newMessage: '',
@@ -248,16 +248,15 @@ createApp({
         // se non ci sono messaggi, li inizializzo vuoti
         this.contacts.forEach(contact => {
             if (!contact.messages) {
-                contact.messages = [];
+                contact.messages = '';
             }
         });
         // inizializzo il contatto attivo al primo contatto
-        this.activeContact = this.contacts[0];
+        this.activeContact = this.contacts[0] || this.contact[{ name: '', avatar: '', messages: '' }];
         this.filteredContactsArray = this.contacts;
     },
     // funzione per far comparire il contatto attivo all'avvio
     created() {
-        this.activeContact = this.contacts[0];
-
+        this.activeContact = this.contacts[0] || this.contact[{ name: '', avatar: '', messages: '' }];
     }
 }).mount('#app')
