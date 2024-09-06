@@ -61,73 +61,14 @@
                     </nav>
                     <div class="list-contacts overflow-auto">
                         <ul class="ps-0">
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
+                            <li class="li-list list-unstyled d-flex align-items-center"
+                                v-for="(contact,index) in contacts">
+                                <img :src="contact.avatar" class="profile-img ps-3"
+                                    :alt="`immagine di profilo di ${contact.name} `">
                                 <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
+                                    <div class="fw-bold">{{ contact.name }}</div>
+                                    <div>{{ contact.messages[contact.messages.length - 1].message }}</div>
                             </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center ">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center ">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-                            <li class="li-list list-unstyled d-flex align-items-center ">
-                                <img src="img/avatar_1.png" class="profile-img ps-3" alt="avatar_1">
-                                <div class="ms-3">
-                                    <div class="fw-bold">Michele</div>
-                                    <div>Ultimo messaggio inviato</div>
-                            </li>
-
                         </ul>
                     </div>
                 </div>
