@@ -56,13 +56,15 @@
                         <div class="input-group">
                             <span class="input-group-text ps-4"><i class="fa-solid fa-magnifying-glass"
                                     role="button"></i></span>
-                            <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat">
+                            <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat"
+                                v-model="searchContact" @input="filterContacts()">
                         </div>
                     </nav>
                     <div class="list-contacts overflow-auto">
                         <ul class="ps-0">
                             <li class="li-list list-unstyled d-flex align-items-center"
-                                v-for="(contact,index) in contacts" @click="selectContact(contact)" role="button">
+                                v-for="(contact,index) in filteredContactsArray" @click="selectContact(contact)"
+                                role="button">
                                 <img :src="contact.avatar" class="profile-img ps-3"
                                     :alt="`immagine di profilo di ${contact.name} `">
                                 <div class="ms-3">

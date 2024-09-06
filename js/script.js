@@ -170,6 +170,10 @@ createApp({
             activeContact: 0,
             // proprietà per il nuovo messaggio
             newMessage: '',
+            // proprietà da collegare all'input di ricerca
+            searchContact: '',
+            // array per i contatti filtrati e non
+            filteredContactsArray: [],
 
         }
     },
@@ -213,7 +217,17 @@ createApp({
             const seconds = (now.getSeconds() < 10 ? '0' : '') + now.getSeconds();
             // combino il tutto
             return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        },
+        // funzione per filtrare i contatti
+        filterContacts() {
+            if (!this.searchContact) this.filteredContactsArray = this.contacts;
+            else this.filteredContactsArray = this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.toLowerCase()));
+
         }
+    },
+    // inizializzo il filtro dei contatti a tutti i contatti
+    mounted() {
+        this.filteredContactsArray = this.contacts;
     },
     // funzione per far comparire il contatto attivo all'avvio
     created() {
