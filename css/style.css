@@ -4,3 +4,57 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* utils */
+body {
+    font-family: 'Lato', sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom, #01968a 120px, #ddd9d5 120px);
+}
+
+#app>.container-card {
+    height: 90vh;
+    width: 85%;
+}
+
+header {
+    height: 100px;
+}
+
+.fa-solid.fa-lg {
+    color: #b2b0b3;
+}
+
+li {
+    height: 100px;
+    background: #fff;
+}
+
+/* slide */
+.profile-img {
+    max-height: 60%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.notification {
+    height: 100px;
+    background-color: #8fd8fb;
+}
+
+.notification-icon {
+    background-color: #eefcfe;
+    height: 30px;
+    width: 30px;
+    padding: 30px;
+    border-radius: 50%;
+    color: #8fd8fb;
+}
+
+.list-contacts {
+    max-height: 100%;
+}
+
+
+
+/* messaggistica */
