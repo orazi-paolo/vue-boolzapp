@@ -170,7 +170,8 @@ createApp({
             activeContact: {
                 name: '',
                 avatar: '',
-                messages: ''
+                visible: false,
+                messages: []
             },
             // proprietà per il nuovo messaggio
             newMessage: '',
@@ -185,11 +186,14 @@ createApp({
     methods: {
         // funzione per selezionare il contatto attivo
         selectContact(contact) {
-            this.activeContact = contact || { name: '', avatar: '', messages: [] };
+            this.activeContact = contact || { name: '', avatar: '', visible: false, messages: [] };
         },
         // funzione per inviare un messaggio
         sendMessage() {
             if (this.newMessage.trim() !== '') {
+                if (!this.activeContact.messages) {
+                    this.activeContact.messages = [];
+                }
                 this.activeContact.messages.push({
                     date: this.getCurrentDate(),
                     message: this.newMessage,
@@ -248,15 +252,15 @@ createApp({
         // se non ci sono messaggi, li inizializzo vuoti
         this.contacts.forEach(contact => {
             if (!contact.messages) {
-                contact.messages = '';
+                contact.messages = [];
             }
         });
         // inizializzo il contatto attivo al primo contatto
-        this.activeContact = this.contacts[0] || this.contact[{ name: '', avatar: '', messages: '' }];
+        this.activeContact = this.contacts[0] || { name: '', avatar: '', visible: false, messages: [] };
         this.filteredContactsArray = this.contacts;
     },
     // funzione per far comparire il contatto attivo all'avvio
     created() {
-        this.activeContact = this.contacts[0] || this.contact[{ name: '', avatar: '', messages: '' }];
+        this.activeContact = this.contacts[0] || { name: '', avatar: '', visible: false, messages: [] };
     }
 }).mount('#app')
