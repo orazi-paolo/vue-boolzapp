@@ -165,8 +165,17 @@ createApp({
                         }
                     ],
                 }
-            ]
+            ],
+            activeContact: 0,
 
         }
+    },
+    methods: {
+        selectContact(contact) {
+            this.activeContact = contact;
+        }
+    },
+    created() {
+        this.activeContact = this.contacts[0];
     }
 }).mount('#app')

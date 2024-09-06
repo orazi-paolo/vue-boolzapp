@@ -72,6 +72,7 @@ footer {
 .send {
     background-color: #d6f7bb;
     align-self: flex-end;
+    margin-right: 10px !important;
 }
 
 .received {

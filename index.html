@@ -38,9 +38,9 @@
                             <div class="fs-5">Paolo</div>
                         </div>
                         <div class="d-flex align-items-center me-4">
-                            <i class="fa-solid fa-circle-notch fa-lg me-4"></i>
-                            <i class="fa-solid fa-message fa-lg me-4"></i>
-                            <i class="fa-solid fa-ellipsis-vertical fa-lg "></i>
+                            <i class="fa-solid fa-circle-notch fa-lg me-4" role="button"></i>
+                            <i class="fa-solid fa-message fa-lg me-4" role="button"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-lg" role="button"></i>
                         </div>
                     </header>
                     <div class="notification d-flex align-items-center">
@@ -62,7 +62,7 @@
                     <div class="list-contacts overflow-auto">
                         <ul class="ps-0">
                             <li class="li-list list-unstyled d-flex align-items-center"
-                                v-for="(contact,index) in contacts">
+                                v-for="(contact,index) in contacts" @click="selectContact(contact)" role="button">
                                 <img :src="contact.avatar" class="profile-img ps-3"
                                     :alt="`immagine di profilo di ${contact.name} `">
                                 <div class="ms-3">
@@ -76,37 +76,25 @@
                 <div class="col-7  h-100 d-flex flex-column justify-content-between">
                     <header id="header-slide" class="bg-light d-flex justify-content-between ">
                         <div class="d-flex align-items-center h-100">
-                            <img src="img/avatar_1.png" alt="immagine di profilo" class="profile-img me-2">
+                            <img :src="activeContact.avatar" :alt="`immagine di profilo di ${activeContact.name}`"
+                                class="profile-img me-2">
                             <div>
-                                <div class="fs-5">Michele</div>
+                                <div class="fs-5">{{ activeContact.name }}</div>
                                 <div>Ultimo accesso oggi alle ore 12:00</div>
                             </div>
                         </div>
                         <div class="d-flex align-items-center me-4">
                             <i class="fa-solid fa-magnifying-glass fa-lg me-4" role="button"></i>
-                            <i class="fa-solid fa-link fa-lg me-4"></i>
-                            <i class="fa-solid fa-ellipsis-vertical fa-lg "></i>
+                            <i class="fa-solid fa-link fa-lg me-4" role="button"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-lg" role="button"></i>
                         </div>
                     </header>
                     <main class=" h-100 d-flex flex-column justify-content-start pb-1 overflow-auto">
                         <ul class="mb-0 ps-0 d-flex flex-column">
-                            <li class="list-unstyled p-3 mt-3 ms-5 li-message send">
-                                ciao Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit incidunt
-                                error a dolorum molestias? Accusamus totam aperiam blanditiis, facere, laborum,
-                                quisquam vero autem consequatur iure atque voluptatibus! Rerum, debitis ut?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quibusdam
-                                ratione illum fuga assumenda corporis, quasi voluptate ullam tempore dolor
-                                eligendi obcaecati dicta blanditiis, quidem, harum vero magni! Commodi,
-                                blanditiis.
-                            </li>
-                            <li class="list-unstyled p-3 mt-3 ms-5 li-message received">
-                                ciao Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit incidunt
-                                error a dolorum molestias? Accusamus totam aperiam blanditiis, facere, laborum,
-                                quisquam vero autem consequatur iure atque voluptatibus! Rerum, debitis ut?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quibusdam
-                                ratione illum fuga assumenda corporis, quasi voluptate ullam tempore dolor
-                                eligendi obcaecati dicta blanditiis, quidem, harum vero magni! Commodi,
-                                blanditiis.
+                            <li class="list-unstyled p-3 mt-3 li-message"
+                                v-for="(message, index) in activeContact.messages"
+                                :class="{  'send me-3': message.status === 'sent', 'received ms-3': message.status === 'received' }">
+                                {{message.message}}
                             </li>
                         </ul>
                     </main>
