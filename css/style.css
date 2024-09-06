@@ -21,13 +21,12 @@ header {
     height: 100px;
 }
 
-.fa-solid.fa-lg {
-    color: #b2b0b3;
+footer {
+    height: 60px;
 }
 
-li {
-    height: 100px;
-    background: #fff;
+.fa-solid.fa-lg {
+    color: #b2b0b3;
 }
 
 /* slide */
@@ -55,6 +54,27 @@ li {
     max-height: 100%;
 }
 
+.li-list {
+    height: 100px;
+    background: #fff;
+}
 
 
 /* messaggistica */
+.li-message {
+    border-radius: 15px;
+    min-width: 100px;
+    max-width: 500px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.send {
+    background-color: #d6f7bb;
+    align-self: flex-end;
+}
+
+.received {
+    background-color: white;
+    align-self: flex-start;
+}
