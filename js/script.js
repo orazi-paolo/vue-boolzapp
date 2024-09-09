@@ -177,8 +177,6 @@ createApp({
             newMessage: '',
             // proprietà da collegare all'input di ricerca
             searchContact: '',
-            // array per i contatti filtrati e non
-            filteredContactsArray: [],
             // variabile per tenere traccia del menu aperto
             dropdownIndex: null,
         }
@@ -230,10 +228,11 @@ createApp({
     },
     computed: {
         // funzione per filtrare i contatti
-        filterContacts() {
-            if (!this.searchContact) this.filteredContactsArray = this.contacts;
-            else this.filteredContactsArray = this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.toLowerCase()));
-        },
+        filteredContacts() {
+            return this.contacts.filter(contact =>
+                contact.name.toLowerCase().includes(this.searchContact.toLowerCase())
+            );
+        }
     },
     // inizializzo il filtro dei contatti a tutti i contatti
     mounted() {
@@ -245,6 +244,5 @@ createApp({
         });
         // inizializzo il contatto attivo al primo contatto
         this.activeContact = this.contacts[0] || { name: '', avatar: '', visible: false, messages: [] };
-        this.filteredContactsArray = this.contacts;
     }
 }).mount('#app')
