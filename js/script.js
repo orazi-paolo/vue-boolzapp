@@ -184,11 +184,11 @@ createApp({
         }
     },
     methods: {
-        // funzione per selezionare il contatto attivo
+        // metodo per selezionare il contatto attivo
         selectContact(contact) {
             this.activeContact = contact || { name: '', avatar: '', visible: false, messages: [] };
         },
-        // funzione per inviare un messaggio
+        // metodo per inviare un messaggio
         sendMessage() {
             if (this.newMessage.trim() !== '') {
                 this.activeContact.messages.push({
@@ -200,45 +200,39 @@ createApp({
                 setTimeout(() => {
                     this.activeContact.messages.push({
                         date: this.getCurrentDate(),
+                        visible: true,
                         message: 'ok',
                         status: 'received'
                     });
                 }, 1000);
             }
         },
-        // funzione per cancellare il testo dall'input
+        // metodo per cancellare il testo dall'input
         cleanerNewMessage() {
             this.newMessage = '';
         },
-        // funzione per cercare la data del messaggio
-        getCurrentDate() {
-            const now = new Date();
-            // ottengo giorno mesi e anno correnti e se sono minori di 10 aggiungo uno 0 davanti
-            const day = (now.getDate() < 10 ? '0' : '') + now.getDate();
-            const month = ((now.getMonth() + 1) < 10 ? '0' : '') + (now.getMonth() + 1);
-            const year = now.getFullYear();
-            // ottengo ore minuti e secondi correnti e se sono minori di 10 aggiungo uno 0 davanti
-            const hours = (now.getHours() < 10 ? '0' : '') + now.getHours();
-            const minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-            const seconds = (now.getSeconds() < 10 ? '0' : '') + now.getSeconds();
-            // combino il tutto
-            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-        },
-        // funzione per filtrare i contatti
-        filterContacts() {
-            if (!this.searchContact) this.filteredContactsArray = this.contacts;
-            else this.filteredContactsArray = this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.toLowerCase()));
-        },
-        // funzione per far comparire il dropdown
+        // metodo per far comparire il dropdown
         toggleDropdown(index) {
             this.dropdownIndex = this.dropdownIndex === index ? null : index;
         },
-        // funzione per eliminare il messaggio selezionato
+        // metodo per eliminare il messaggio selezionato
         deleteMessage(index) {
             if (index >= 0 && index < this.activeContact.messages.length) {
                 this.activeContact.messages.splice(index, 1);
             }
             if (this.dropdownIndex === index) this.dropdownIndex = null;
+        },
+        // metodo per cercare la data del messaggio
+        getCurrentDate() {
+            const now = luxon.DateTime.now();
+            return now.setLocale('it').toFormat('dd/MM/yyyy HH:mm:ss');
+        },
+    },
+    computed: {
+        // funzione per filtrare i contatti
+        filterContacts() {
+            if (!this.searchContact) this.filteredContactsArray = this.contacts;
+            else this.filteredContactsArray = this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.toLowerCase()));
         },
     },
     // inizializzo il filtro dei contatti a tutti i contatti

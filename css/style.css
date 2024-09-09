@@ -59,6 +59,10 @@ footer {
     background: #fff;
 }
 
+.active-contact {
+    background-color: lightgray;
+}
+
 
 /* messaggistica */
 main {
