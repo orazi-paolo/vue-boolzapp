@@ -51,7 +51,7 @@ footer {
 }
 
 .list-contacts {
-    max-height: calc(100vh - 200px);
+    height: calc(90vh - 225px);
 }
 
 .li-list {
